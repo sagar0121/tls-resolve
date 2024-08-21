@@ -1,0 +1,81 @@
+function Disable-TLS10
+{
+    [cmdletbinding()]
+    param
+    (
+    )
+
+    begin
+    {
+        $protocol = "TLS 1.0"
+    }
+    process
+    {
+        if(-not $(Get-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\$protocol" -EA SilentlyContinue))
+        {		
+            New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\$protocol" | Out-Null			
+        }
+
+        if(-not $(Get-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\$protocol\Client" -EA SilentlyContinue))
+        {		
+            New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\$protocol\Client" | Out-Null		
+        }
+
+        if(-not $(Get-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\$protocol\Server" -EA SilentlyContinue))
+        {
+            New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\$protocol\Server" | Out-Null			
+        }
+
+        New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\$protocol\Client" -Name DisabledByDefault -Value 1 -PropertyType DWORD -Force | Out-Null
+        New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\$protocol\Client" -Name Enabled           -Value 0 -PropertyType DWORD -Force | Out-Null	
+	    
+        New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\$protocol\Server" -Name DisabledByDefault -Value 1 -PropertyType DWORD -Force | Out-Null
+        New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\$protocol\Server" -Name Enabled           -Value 0 -PropertyType DWORD -Force | Out-Null
+    }
+    end
+    {
+    }
+}
+
+function Disable-TLS11
+{
+    [cmdletbinding()]
+    param
+    (
+    )
+
+    begin
+    {
+        $protocol = "TLS 1.1"
+    }
+    process
+    {
+        if(-not $(Get-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\$protocol" -EA SilentlyContinue))
+        {		
+            New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\$protocol" | Out-Null			
+        }
+
+        if(-not $(Get-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\$protocol\Client" -EA SilentlyContinue))
+        {		
+            New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\$protocol\Client" | Out-Null		
+        }
+
+        if(-not $(Get-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\$protocol\Server" -EA SilentlyContinue))
+        {
+            New-Item -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\$protocol\Server" | Out-Null			
+        }
+
+        New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\$protocol\Client" -Name DisabledByDefault -Value 1 -PropertyType DWORD -Force | Out-Null
+        New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\$protocol\Client" -Name Enabled           -Value 0 -PropertyType DWORD -Force | Out-Null	
+	    
+        New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\$protocol\Server" -Name DisabledByDefault -Value 1 -PropertyType DWORD -Force | Out-Null
+        New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\$protocol\Server" -Name Enabled           -Value 0 -PropertyType DWORD -Force | Out-Null
+    }
+    end
+    {
+    }
+}
+
+
+# Disable-TLS10
+# Disable-TLS11
