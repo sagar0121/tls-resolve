@@ -1,7 +1,6 @@
 client
-proto udp
-explicit-exit-notify
-remote 104.248.227.227 1194
+proto tcp
+remote 104.248.227.227 443
 dev tun
 resolv-retry infinite
 nobind
